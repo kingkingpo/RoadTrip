@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>Mobile project</title>
+</head>
+
+<body onload='setMembers();'>
+          <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    -->
+        <!-- Write your own page and link it to one of these buttons, don't forget to change the button text    -->
+        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    -->
+        
+        
+        <a href="MappingVersion2.html"><button>Search the Location</button></a>             
+        <a href="CurrentLocation.html"><button>Current Location</button></a>
+        
+
+    
+<!-- Mine        <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyBl76dL2yuG1MLqGdEgY86YOdbjupGVujs",
+            authDomain: "firebsedemo-9ce94.firebaseapp.com",
+            databaseURL: "https://firebsedemo-9ce94.firebaseio.com",
+            projectId: "firebsedemo-9ce94",
+            storageBucket: "",
+            messagingSenderId: "1008795786146"
+          };
+          firebase.initializeApp(config);
+        </script> -->
+
+        <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+        <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyD6uonrdf1rL8nC3aiRfUa14zUqYra2es8",
+            authDomain: "roadtrip-1d5b1.firebaseapp.com",
+            databaseURL: "https://roadtrip-1d5b1.firebaseio.com",
+            projectId: "roadtrip-1d5b1",
+            storageBucket: "roadtrip-1d5b1.appspot.com",
+            messagingSenderId: "461431680534"
+        };
+        firebase.initializeApp(config);
+        </script>
+
+       
+        <script type="text/javascript" src="js/index.js"></script>
+
+    </body>
+
+</html>

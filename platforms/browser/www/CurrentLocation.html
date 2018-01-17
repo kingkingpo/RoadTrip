@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+
+      var map, infoWindow;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 0.011987, lng: -81.200276},
+          zoom: 14
+        });
+        infoWindow = new google.maps.InfoWindow;
+        var dateDB=Date();
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Where I am!' + '<br>Latitude: ' + position.coords.latitude + '<br>Longitude: ' + position.coords.longitude);
+            infoWindow.open(map);
+            map.setCenter(pos);
+            
+            var itemId = firebase.database().ref("Group 13/Team Data").child("MY_Latitude_Longitude").push();
+
+            itemId.set({
+              latitude:position.coords.latitude,
+              longitude:position.coords.longitude,
+              date:dateDB
+            }).then(function(){
+                console.log('Success');
+            }).catch(function(error){
+                console.error('Error occured');
+            });
+
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+    </script>
+<!--Mine <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBl76dL2yuG1MLqGdEgY86YOdbjupGVujs",
+    authDomain: "firebsedemo-9ce94.firebaseapp.com",
+    databaseURL: "https://firebsedemo-9ce94.firebaseio.com",
+    projectId: "firebsedemo-9ce94",
+    storageBucket: "",
+    messagingSenderId: "1008795786146"
+  };
+  firebase.initializeApp(config);
+</script> -->
+
+<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD6uonrdf1rL8nC3aiRfUa14zUqYra2es8",
+    authDomain: "roadtrip-1d5b1.firebaseapp.com",
+    databaseURL: "https://roadtrip-1d5b1.firebaseio.com",
+    projectId: "roadtrip-1d5b1",
+    storageBucket: "roadtrip-1d5b1.appspot.com",
+    messagingSenderId: "461431680534"
+  };
+  firebase.initializeApp(config);
+</script>
+    
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFI8jQkUP3e6YNFR47nMtG4dapYi2tJ9o&callback=initMap&callback=initMap&libraries=places" async defer></script>
+  </body>
+</html>
