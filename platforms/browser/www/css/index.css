@@ -24,3 +24,11 @@
     align-items: center;
 
 }
+
+#loginProgress{
+    display: none;
+}
+
+#loginError{
+    display: none;
+}
