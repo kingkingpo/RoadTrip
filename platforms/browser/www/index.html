@@ -40,20 +40,58 @@
 
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <title>Mobile project</title>
+
+    <link rel="stylesheet" href="mdl/material.min.css">
+    <script src="mdl/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 </head>
 
 <body onload='setMembers();'>
-          <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    -->
-        <!-- Write your own page and link it to one of these buttons, don't forget to change the button text    -->
-        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    -->
-        
-        
+
+    <div class="login-cover">
+        <div class="page-loadr mdl-spinner mdl-js-spinner is-active"></div>
+    </div>
+
+    <div class="mdl-layout mdl-js-layout layout-transparent">
+        <header class="mdl-layout__header">
+          <div class="mdl-layout-icon"></div>
+          <div class="mdl-layout__header-row">
+            <span class="mdl-layout__title">Road Trip
+                <span class="page-title-span"> | </span>
+                <span class="page-title-span"> Home </span>
+            </span>
+            <div class="mdl-layout-spacer"></div>
+            <nav class="mdl-navigation">
+                <button class="mdl-button mdl-js-button mdl-button--raised">
+                    Sign out <img calss="button-right-icon" src="img/ic_account_box_black_24dp_1x.png">
+                  </button>
+            </nav>
+          </div>
+        </header>
+        <div class="mdl-layout__drawer">
+          <span class="mdl-layout__title">Road Trip</span>
+          <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="#">Nav link 1</a>
+            <a class="mdl-navigation__link" href="#">Nav link 2</a>
+            <a class="mdl-navigation__link" href="#">Nav link 3</a>
+          </nav>
+        </div>
+        <main class="mdl-layout__content">
+          <p>Content</p>
+          <p>Goes</p>
+          <p>Here</p>
+        </main>
+      </div>
+
+
+
         <a href="MappingVersion2.html"><button>Search the Location</button></a>             
         <a href="CurrentLocation.html"><button>Current Location</button></a>
         
 
     
-<!-- Mine        <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
         <script>
           // Initialize Firebase
           var config = {
@@ -65,20 +103,6 @@
             messagingSenderId: "1008795786146"
           };
           firebase.initializeApp(config);
-        </script> -->
-
-        <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
-        <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyD6uonrdf1rL8nC3aiRfUa14zUqYra2es8",
-            authDomain: "roadtrip-1d5b1.firebaseapp.com",
-            databaseURL: "https://roadtrip-1d5b1.firebaseio.com",
-            projectId: "roadtrip-1d5b1",
-            storageBucket: "roadtrip-1d5b1.appspot.com",
-            messagingSenderId: "461431680534"
-        };
-        firebase.initializeApp(config);
         </script>
 
        
