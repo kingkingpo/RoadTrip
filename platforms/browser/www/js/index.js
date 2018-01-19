@@ -1,3 +1,5 @@
+
+
 function setMembers(){
     firebase.database().ref("Group 13/Team Members/").child("Team Member Names").set({
         Member1:"Hyeonguk Shin",
@@ -34,7 +36,9 @@ function addLocations(){
     if (user) {
       // User is signed in.
       $(".login-cover").hide();
-
+      
+      document.getElementById('userId').innerHTML=user.email; //show email during logged in
+     
       var dialog = document.querySelector('#loginDialog');
       if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
@@ -43,6 +47,8 @@ function addLocations(){
      
     } else {
       // No user is signed in.
+      $(".login-cover").show();
+      
       var dialog = document.querySelector('#loginDialog');
       if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
@@ -52,6 +58,8 @@ function addLocations(){
     }
   });
 
+
+ /*  Login process */
 $("#loginBtn").click(
     function(){
         var email = $("#loginEmail").val();
@@ -74,3 +82,77 @@ $("#loginBtn").click(
 
     }
 );
+
+/* Log out process */
+$("#signOutBtn").click(
+    function(){
+        firebase.auth().signOut().then(function() {
+            // Sign-out successful.
+            $("#loginProgress").hide();
+            $("#loginBtn").show();
+            document.getElementById('loginPassword').value="";   
+            
+          }).catch(function(error) {
+            alert(error.message);
+          });
+    }
+);
+
+
+ /*  Resgister process */
+ $("#registerBtn").click(
+    function(){
+        
+        var dialog = document.querySelector('#registerDialog');
+        if (! dialog.showModal) {
+          dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.showModal();
+
+    }
+);
+
+ /*  Resgister done */
+
+ $("#registerDoneBtn").click(
+    function(){
+
+        var email = $("#registerEmail").val();
+        var password = $("#registerPassword").val();
+        var checkPassword = $("#checkPassword").val();
+        
+        if(password == checkPassword && password !=""){
+            firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
+                var dialog = document.querySelector('#registerDialog');
+                if (! dialog.showModal) {
+                  dialogPolyfill.registerDialog(dialog);
+                }
+                dialog.close();
+
+            },function(error) {
+                $("#registerError").show().text(error.message);
+              }
+            );
+ 
+        }
+        else{
+            $("#registerError").show().text("Password is not the same");
+        }
+    }
+);
+
+ /*  Resgister cancel */
+$("#registerCancelBtn").click(
+    function(){
+        
+        var dialog = document.querySelector('#registerDialog');
+        if (! dialog.showModal) {
+          dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.close();
+
+    }
+);
+
+
+
