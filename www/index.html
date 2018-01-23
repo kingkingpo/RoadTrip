@@ -37,7 +37,8 @@
     * Create your own at http://cspisawesome.com
     -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.7/dialog-polyfill.js"></script>
+    
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <title>Mobile project</title>
 
@@ -67,10 +68,14 @@
         <button id="loginBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
             Sign in
         </button>
-        <div id="loginProgress"class="page-loadr mdl-spinner mdl-js-spinner is-active"></div>
+        <div id="loginProgress" class="page-loadr mdl-spinner mdl-js-spinner is-active"></div>
         <button id="registerBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
             Register
         </button>
+       
+          <img  src="img/images/signin-google_09.gif" id="google_sign_in" class="mdl-button mdl-js-button mdl-button--raised  mdl-js-ripple-effect"/>
+    
+        
     </div>
   </dialog>
 
@@ -115,11 +120,11 @@
           <div class="mdl-layout__header-row">
             <span class="mdl-layout__title">Road Trip
                 <span class="page-title-span"> | </span>
-                <span id="userId"class="page-title-span"> Home </span>
+                <span id="userId" class="page-title-span"> Home </span>
             </span>
             <div class="mdl-layout-spacer"></div>
             <nav class="mdl-navigation">
-                <button id="signOutBtn"class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                <button id="signOutBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
                     Sign out <i class="material-icons">account_box</i> 
                   </button>
             </nav>

@@ -32,3 +32,10 @@
 #loginError{
     display: none;
 }
+
+#google_sign_in{
+   margin-top:30px;
+   width:238.64px;
+   height: 36px;
+
+}

@@ -47,7 +47,9 @@
             infoWindow.open(map);
             map.setCenter(pos);
             
-            var itemId = firebase.database().ref("Group 13/Team Data").child("MY_Latitude_Longitude").push();
+            var user = firebase.auth().currentUser;
+ 
+            var itemId = firebase.database().ref("users/"+user.uid).child("MY_Latitude_Longitude").push();
 
             itemId.set({
               latitude:position.coords.latitude,

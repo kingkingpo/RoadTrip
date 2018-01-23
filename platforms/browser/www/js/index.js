@@ -13,8 +13,10 @@ function addLocations(){
     var phoneDB=document.getElementById('place-phone').textContent;
     var addressDB=document.getElementById('place-address').textContent;
     var dateDB=Date();
-    // var itemId = firebase.database().ref().child("Team Data").push();
-    var itemId = firebase.database().ref("Group 13/Team Data").child("Search_Location_Info").push();
+   
+    var user = firebase.auth().currentUser;
+ 
+    var itemId = firebase.database().ref("users/"+user.uid).child("Search_Location_Info").push();
 
     
      itemId.set({
@@ -40,7 +42,7 @@ function addLocations(){
       document.getElementById('userId').innerHTML=user.email; //show email during logged in
      
       var dialog = document.querySelector('#loginDialog');
-      if (! dialog.showModal) {
+      if (!dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
       }
       dialog.close();
@@ -50,7 +52,7 @@ function addLocations(){
       $(".login-cover").show();
       
       var dialog = document.querySelector('#loginDialog');
-      if (! dialog.showModal) {
+      if (!dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
       }
       dialog.showModal();
@@ -59,7 +61,7 @@ function addLocations(){
   });
 
 
- /*  Login process */
+ /*  Login with email process */
 $("#loginBtn").click(
     function(){
         var email = $("#loginEmail").val();
@@ -82,6 +84,37 @@ $("#loginBtn").click(
 
     }
 );
+ /*  Login with google */
+ $("#google_sign_in").click(
+    function(){
+
+        var provider = new firebase.auth.GoogleAuthProvider();
+        
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+        firebase.auth().signInWithRedirect(provider);
+
+        firebase.auth().getRedirectResult().then(function(result) {
+            if (result.credential) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                // ...
+            }
+            // The signed-in user info.
+            var user = result.user;
+            }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+            });
+    }
+);
+
 
 /* Log out process */
 $("#signOutBtn").click(
@@ -104,7 +137,7 @@ $("#signOutBtn").click(
     function(){
         
         var dialog = document.querySelector('#registerDialog');
-        if (! dialog.showModal) {
+        if (!dialog.showModal) {
           dialogPolyfill.registerDialog(dialog);
         }
         dialog.showModal();
@@ -116,15 +149,14 @@ $("#signOutBtn").click(
 
  $("#registerDoneBtn").click(
     function(){
-
-        var email = $("#registerEmail").val();
+       var email = $("#registerEmail").val();
         var password = $("#registerPassword").val();
         var checkPassword = $("#checkPassword").val();
         
         if(password == checkPassword && password !=""){
             firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
                 var dialog = document.querySelector('#registerDialog');
-                if (! dialog.showModal) {
+                if (!dialog.showModal) {
                   dialogPolyfill.registerDialog(dialog);
                 }
                 dialog.close();
@@ -137,7 +169,7 @@ $("#signOutBtn").click(
         }
         else{
             $("#registerError").show().text("Password is not the same");
-        }
+        } 
     }
 );
 
@@ -146,7 +178,7 @@ $("#registerCancelBtn").click(
     function(){
         
         var dialog = document.querySelector('#registerDialog');
-        if (! dialog.showModal) {
+        if (!dialog.showModal) {
           dialogPolyfill.registerDialog(dialog);
         }
         dialog.close();
