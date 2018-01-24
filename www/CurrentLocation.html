@@ -4,11 +4,14 @@
     <title>Geolocation</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
+    <link rel="stylesheet" href="mdl/material.min.css">
+    <script src="mdl/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 100%;
+        height: 90%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -19,7 +22,22 @@
     </style>
   </head>
   <body>
-    <div id="map"></div>
+      
+          <div class="mdl-textfield mdl-js-textfield"  style="width:190px; margin-left:10px;">
+            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="trackEverySecond">
+            <label class="mdl-textfield__label" for="sample2">Track every (...) second</label>
+            <span class="mdl-textfield__error">Input is not a number!</span>
+          </div>
+      
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="startTracking();" style="margin:10px;">
+          Start tracking
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="stopTracking();" style="margin:10px;">
+            Stop tracking
+          </button>
+    <div id="map">
+      
+    </div>
     <script>
       // Note: This example requires that you consent to location sharing when
       // prompted by your browser. If you see the error "The Geolocation service
@@ -32,8 +50,12 @@
           center: {lat: 0.011987, lng: -81.200276},
           zoom: 14
         });
+        showCurrentLocation();
+      }
+      function showCurrentLocation(){
         infoWindow = new google.maps.InfoWindow;
-        var dateDB=Date();
+        var time=Date();
+        var res = time.substring(0, 24); //get rid of unnecessary string
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -43,18 +65,19 @@
             };
 
             infoWindow.setPosition(pos);
-            infoWindow.setContent('Where I am!' + '<br>Latitude: ' + position.coords.latitude + '<br>Longitude: ' + position.coords.longitude);
+            //infoWindow.setContent('Where I am!' + '<br>Latitude: ' + position.coords.latitude + '<br>Longitude: ' + position.coords.longitude);
+            infoWindow.setContent(res);
             infoWindow.open(map);
             map.setCenter(pos);
             
             var user = firebase.auth().currentUser;
  
             var itemId = firebase.database().ref("users/"+user.uid).child("MY_Latitude_Longitude").push();
-
+            
             itemId.set({
               latitude:position.coords.latitude,
               longitude:position.coords.longitude,
-              date:dateDB
+              date:time
             }).then(function(){
                 console.log('Success');
             }).catch(function(error){
@@ -69,7 +92,6 @@
           handleLocationError(false, infoWindow, map.getCenter());
         }
       }
-
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
         infoWindow.setContent(browserHasGeolocation ?
@@ -77,6 +99,25 @@
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
       }
+
+      var t;
+      var tracking_is_on = 0;
+      function tracking(){
+        showCurrentLocation();
+        var everyScond=document.getElementById('trackEverySecond').value * 1000;  
+        t = setTimeout(function(){ tracking() }, everyScond);
+     }
+     function startTracking() {
+        if (!tracking_is_on) {
+          tracking_is_on = 1;
+          tracking();
+        }
+     }
+
+    function stopTracking() {
+        clearTimeout(t);
+        tracking_is_on = 0;
+    }
     </script>
 <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
 <script>
